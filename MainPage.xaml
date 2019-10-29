@@ -1,0 +1,255 @@
+﻿<Page
+    x:Class="Name_and_NPC_Generator.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Name_and_NPC_Generator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:DMDataNames="using:DMData.Names"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style TargetType="ListView">
+            <Setter Property="IsMultiSelectCheckBoxEnabled" Value="False"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="CadetBlue"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="9"/>
+        </Style>
+        <Style x:Key="ComboBoxLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="MenuDisplay" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="AliceBlue"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="NameButtons" TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="CadetBlue"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="9"/>
+        </Style>
+        <Style x:Key="ListViewTextBlock" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="NameDisplayLarge" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="NameDisplaySmall" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="MenuBarItem">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="CornerRadius" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="OldLace">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Height="60">
+                <StackPanel.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="Firebrick" Offset="0"/>
+                        <GradientStop Color="Crimson" Offset=".25"/>
+                        <GradientStop Color="Maroon" Offset=".75"/>
+                        <GradientStop Color="OldLace" Offset="1"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <StackPanel Orientation="Horizontal" Margin="5,10,0,0" Width="500" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,3,0">
+                        <TextBlock Style="{StaticResource MenuDisplay}" x:Name="selectedCategoryBar" FontSize="11" FontStyle="Italic"/>
+                        <TextBlock Style="{StaticResource MenuDisplay}" FontSize="11" FontStyle="Italic" Text="-"/>
+                        <TextBlock Style="{StaticResource MenuDisplay}" x:Name="selectedGenderBar" FontSize="11" FontStyle="Italic" Margin="0,0,10,0"/>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource MenuDisplay}" FontSize="12" x:Name="selectedTitleBar" Margin="0,0,2,0"/>
+                    <TextBlock Style="{StaticResource MenuDisplay}" FontSize="12" x:Name="selectedGivenNameBar" Margin="0,0,2,0"/>
+                    <TextBlock Style="{StaticResource MenuDisplay}" FontSize="12" x:Name="selectedSurnameBar" Margin="0,0,2,0"/>
+                    <TextBlock Style="{StaticResource MenuDisplay}" FontSize="12" x:Name="selectedDescriptorBar"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                    <TextBlock FontSize="16" Foreground="AliceBlue" Margin="0,0,5,7" >Name Category:</TextBlock>
+                    <ComboBox FontSize="14" Foreground="Black" Background="AliceBlue" x:Name="nameCategories" Width="140"/>
+                    <MenuBar VerticalAlignment="Center" Margin="10,0,0,20">
+                        <MenuBarItem Title="Random">
+                            <MenuFlyoutItem x:Name="getRandomFemale" Text="Female by Category Selected"/>
+                            <MenuFlyoutItem x:Name="getRandomMale" Text="Male by Category Selected"/>
+                            <MenuFlyoutItem x:Name="getRandomName" Text="Any Gender from Any Category"/>
+                        </MenuBarItem>
+                    </MenuBar>
+                </StackPanel>
+            </StackPanel>
+            <Pivot>
+                <PivotItem Header="Names">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,12,10,0">
+                                <TextBlock Style="{StaticResource NameDisplaySmall}" x:Name="selectedCategory"/>
+                                <TextBlock Style="{StaticResource NameDisplaySmall}" Text="-"/>
+                                <TextBlock Style="{StaticResource NameDisplaySmall}" x:Name="selectedGender"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                                <TextBlock Style="{StaticResource NameDisplayLarge}" x:Name="selectedTitle"/>
+                                <Button Style="{StaticResource NameButtons}" x:Name="clearSelectedTitle">Title</Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0" >
+                                <TextBlock Style="{StaticResource NameDisplayLarge}"  x:Name="selectedGivenName"/>
+                                <Button Style="{StaticResource NameButtons}" x:Name="clearSelectedGivenName">Given Name</Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                                <TextBlock Style="{StaticResource NameDisplayLarge}" x:Name="selectedSurname"/>
+                                <Button Style="{StaticResource NameButtons}" x:Name="clearSelectedSurname">Surname</Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                                <TextBlock Style="{StaticResource NameDisplayLarge}"  x:Name="selectedDescriptor"/>
+                                <Button Style="{StaticResource NameButtons}" x:Name="clearSelectedDescriptor">Descriptor</Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Pivot Width="420">
+                                    <PivotItem Header="Titles" HorizontalContentAlignment="Left">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource ComboBoxLabel}" Margin="0,0,10,0">Category:</TextBlock>
+                                                <ComboBox x:Name="titleCategories" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        <ListView x:Name="viewTitlesGeneral" Height="400" Width="Auto" Margin="0,10,0,0">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate x:DataType="DMDataNames:Title">
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource ListViewTextBlock}" FontWeight="Bold" Text="{x:Bind Name}" Width="260"/>
+                                                            <TextBlock FontSize="14" Text="{x:Bind Gender}" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
+                                                        </StackPanel>
+                                                        <TextBlock FontSize="14" FontStyle="Italic" TextWrapping="WrapWholeWords" Text="{x:Bind Description}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                        </StackPanel>
+                                    </PivotItem>
+                                    <PivotItem Header="Military" HorizontalContentAlignment="Left">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                                                    <TextBlock Style="{StaticResource ComboBoxLabel}">Category</TextBlock>
+                                                    <ComboBox x:Name="militaryCategories" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                                                    <TextBlock Style="{StaticResource ComboBoxLabel}" >Branch</TextBlock>
+                                                    <ComboBox x:Name="militaryBranches" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Style="{StaticResource ComboBoxLabel}">Grade</TextBlock>
+                                                    <ComboBox x:Name="militaryGrades" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                             </StackPanel>
+                                            <ListView x:Name="viewTitlesMilitary" Height="400" Width="300" Margin="0,10,0,0">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate x:DataType="DMDataNames:MilitaryRank">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind Rank}" Width="220"/>
+                                                            <TextBlock FontSize="16" Text="{x:Bind Grade}" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </StackPanel>
+                                    </PivotItem>
+                                    <PivotItem Header="Nobility" HorizontalContentAlignment="Left">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                                                    <TextBlock Style="{StaticResource ComboBoxLabel}">Category</TextBlock>
+                                                    <ComboBox x:Name="nobilityCategories" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Style="{StaticResource ComboBoxLabel}">Gender</TextBlock>
+                                                <ComboBox x:Name="nobilityGenders" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                         </StackPanel>
+                                            <ListView x:Name="viewTitlesNobility" Height="400" Width="300" Margin="0,10,0,0">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate x:DataType="DMDataNames:Nobility">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind Title}" Width="220"/>
+                                                            <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind Ranking}" 
+                                                                       VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView> 
+                                        </StackPanel>
+                                    </PivotItem>
+                                </Pivot>
+                            <Pivot Width="180">
+                                <PivotItem Header="Female" HorizontalContentAlignment="Left">
+                                    <ListView x:Name="viewFemaleNames" Height="440" Width="140">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="x:String">
+                                                <StackPanel>
+                                                    <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </PivotItem>
+                                <PivotItem Header="Male" HorizontalContentAlignment="Left">
+                                    <ListView x:Name="viewMaleNames" Height="440" Width="140">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="x:String">
+                                                <StackPanel>
+                                                    <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </PivotItem>
+                            </Pivot>
+                            <StackPanel Margin="0,7,0,0">
+                                <TextBlock FontSize="24" Text="Surnames" HorizontalTextAlignment="Center"/>
+                                <ListView x:Name="viewSurnames" Height="440" Width="Auto" Margin="0,15,0,0">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                            <StackPanel Margin="20,7,0,0">
+                                <TextBlock FontSize="24" Text="Descriptors" HorizontalTextAlignment="Center"/>
+                                <ListView x:Name="viewDescriptors" Height="440" Width="Auto" Margin="0,15,0,0">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource ListViewTextBlock}" Text="{x:Bind}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem Header="NPCs">
+                    
+                </PivotItem>
+            </Pivot>
+        </StackPanel>
+    </Grid>
+</Page>
