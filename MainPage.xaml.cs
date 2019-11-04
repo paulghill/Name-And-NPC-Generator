@@ -233,7 +233,7 @@ namespace Name_and_NPC_Generator
         {
             if (this.nameCategories.SelectedIndex > -1)
             {
-                var output = (Name)NamesManagement.NameData
+                var output = (CategoryNames)NamesManagement.NameData
                     .Where(a => a.Category == (NameCategoryType)this.nameCategories.SelectedItem)
                     .FirstOrDefault();
                 this.viewFemaleNames.ItemsSource = output.FemaleNames;
